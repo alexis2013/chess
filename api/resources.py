@@ -4,9 +4,18 @@ from api.models.models import *
 
 
 class ClienteDetail(ResourceDetail):
+
+    def before_update_object(self, *args, **kwargs):
+        print(args)
+        print(kwargs)
+
     schema = ClienteSchema
     data_layer = {"session" : db.session,
-                  "model" : Cliente}
+                  "model" : Cliente,
+                  "methods" : {
+                      "before_patch" : before_update_object
+                    }
+                  }
 
 
 class ClienteList(ResourceList):

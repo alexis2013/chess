@@ -45,7 +45,7 @@
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
             </div>
             <div class="modal-body">
-                <form id="form_client" action="/clients" method="POST">
+                <form id="form_client" action="/clients" method="POST" enctype="application/vnd.api+json">
                     <div class="form-group">
                         <label for="name">Name </label>
                         <input name="name" id="name" class="form-control" value="{{client.attributes.nombre}}" type="text" aria-label="input">

@@ -1,5 +1,5 @@
 import requests
-from flask import Flask, render_template, request, redirect, url_for, flash, session, json
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 from api.models.models import *
 
 def create_app():
@@ -26,12 +26,22 @@ def index():
     return render_template("index.html", data=data)
 
 
-@app.route('/clients', methods=['GET','POST'])
+@app.route('/clients', methods=['POST'])
 def clients():
     if request.method == 'POST':
-        print(json.loads(request.get_data()))
-        #data = {"nombre": request.form.get("name"), "apellido": request.form.get("apellido")}
-        #requests.patch(url_for("blue.cliente_detail", _external=True, id=request.form.get("id")),data=data)
+        headers = {'content-type': 'application/vnd.api+json'}
+
+        data = {"data" :
+                    {"id" : request.form["id"],
+            "type" : "cliente",
+                          "attributes": {
+                              "name" : request.form["name"]
+                          },
+                    }
+                }
+        data = jsonify(data).json
+        requests.patch(url_for("blue.cliente_detail", _external=True, id=request.form.get("id")),
+                       json=data, headers=headers)
 
     return redirect(url_for("index"))
 
