@@ -1,0 +1,113 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<div class="container-fluid">
+    <div class="container-fluid mt-3">
+       <button class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#modal-add-product">
+           Add New Product
+       </button>
+    </div>
+
+<!-- Modal -->
+
+<div class="modal fade" id="modal-add-product" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Producto</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="/new-product" method="POST" enctype="application/vnd.api+json">
+                    <div class="form-group">
+                        <label for="newProduct">Product</label>
+                        <input type="text" name="newProduct" id="newProduct" placeholder="Product" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPrice">Price</label>
+                        <input type="number" name="newPrice" id="newPrice" placeholder="00.00" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Add Product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fin Modal -->
+
+
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th class="align-middle text-center" scope="col">#</th>
+        <th class="align-middle text-center" scope="col">Product</th>
+        <th class="align-middle text-center" scope="col">Price</th>
+        <th class="align-middle text-center" scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for product in data.data %}
+      <tr>
+        <th class="align-middle text-center" scope="row">{{product.id}}</th>
+        <td class="align-middle text-center">{{product.attributes.descripcion}}</td>
+        <td class="align-middle text-center">{{product.attributes.precio}}</td>
+        <td class="align-middle text-center">
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Acciones
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
+
+              <li>
+                <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-product-{{product.id}}">
+                  Update Information
+                </button>
+              </li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+
+  <!-- Modal producto -->
+
+<div class="modal fade" id="modal-product-{{product.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" >Update Information</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="form_client" action="/clients" method="POST" enctype="application/vnd.api+json">
+                    <div class="form-group">
+                        <label for="product">Name </label>
+                        <input name="product" id="product" class="form-control" value="{{product.attributes.descripcion}}" type="text" aria-label="input">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Last Name</label>
+                        <input name="price" id="price" class="form-control" type="number" value="{{product.attributes.precio}}">
+                    </div>
+                    <input name="id" id="id" class="form-control" type="text" hidden value="{{product.id}}">
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fin Modal -->
+
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+{% endblock %}

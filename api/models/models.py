@@ -10,31 +10,11 @@ class Cliente(db.Model):
     apellido = db.Column(db.String, nullable=False)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 productos = db.Table("productos_compra",
     db.Column("id_compra", db.Integer, db.ForeignKey("compra.id_compra")),
     db.Column("id_producto", db.Integer, db.ForeignKey("producto.id_producto"))
 )
+
 
 class Producto(db.Model):
     __tablename__ = "producto"

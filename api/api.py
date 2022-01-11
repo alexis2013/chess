@@ -8,3 +8,6 @@ api = Api(app, blue)
 
 api.route(ClienteDetail, "cliente_detail", "/cliente/<id>")
 api.route(ClienteList, "cliente_list", "/clientes")
+
+api.route(ProductoDetail, "producto_detail", "/product/<id>")
+api.route(ProductoList, "producto_list", "/productos")

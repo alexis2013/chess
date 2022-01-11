@@ -24,5 +24,28 @@ class ClienteList(ResourceList):
                   "model": Cliente}
 
 
+class ProductoDetail(ResourceDetail):
+
+    def before_update_object(self, *args, **kwargs):
+        print(args)
+        print(kwargs)
+
+    schema = ProductoSchema
+    data_layer = {"session" : db.session,
+                  "model" : Producto,
+                  "methods" : {
+                      "before_patch" : before_update_object
+                    }
+                  }
+
+
+class ProductoList(ResourceList):
+    schema = ProductoSchema
+    data_layer = {"session": db.session,
+                  "model": Producto}
+
+
+
+
 
 
