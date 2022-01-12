@@ -45,6 +45,12 @@ class ProductoList(ResourceList):
                   "model": Producto}
 
 
+class ClienteRelationship(ResourceRelationship):
+    schema = ClienteSchema
+    data_layer = {'session': db.session,
+                  'model': Cliente}
+
+
 
 
 

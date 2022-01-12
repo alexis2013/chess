@@ -11,3 +11,5 @@ api.route(ClienteList, "cliente_list", "/clientes")
 
 api.route(ProductoDetail, "producto_detail", "/product/<id>")
 api.route(ProductoList, "producto_list", "/productos")
+
+api.route(ClienteRelationship, "client_shop", "/cliente/<id>/relationship/owner")

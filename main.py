@@ -30,5 +30,14 @@ def index():
     return redirect(url_for("clientes.clients"))
 
 
+@app.route("/compras")
+def compras():
+    data = {"clientes": requests.get(url_for("blue.cliente_list", _external=True)).json(),
+            "productos": requests.get(url_for("blue.producto_list", _external=True)).json(),
+            "shops": {"data": []}}
+
+    return render_template("compras.html", data=data)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
